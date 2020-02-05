@@ -30,8 +30,8 @@ int splitting(int *array, size_t size, int min, int max)
 			if (x != y)
 			{
 				tmp = array[x];
-				x = array[y];
-				y = array[tmp];
+				array[x] = array[y];
+				array[y] = tmp;
 				print_array(array, size);
 			}
 		}
@@ -39,8 +39,8 @@ int splitting(int *array, size_t size, int min, int max)
 	if ((x + 1) != max)
 	{
 		tmp = array[x + 1];
-		x = array[max];
-		max = array[tmp];
+		array[x + 1] = array[max];
+		array[max] = tmp;
 		print_array(array, size);
 	}
 	return (x + 1);
