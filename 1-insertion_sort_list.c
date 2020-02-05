@@ -14,36 +14,34 @@ void insertion_sort_list(listint_t **list)
 	listint_t *tmp = NULL;
 
 
-	if (*list == NULL || (*list)->next == NULL)
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
-	else
+
+	nd = (*list)->next;
+	while (nd != NULL)
 	{
-		nd = (*list)->next;
-		while (nd != NULL)
+		if (nd->n < nd->prev->n)
 		{
-			if (nd->n < nd->prev->n)
+			tmp = nd;
+			swp = tmp->prev;
+			nd = nd->next;
+			while (swp != NULL && tmp->n < swp->n)
 			{
-				tmp = nd;
+				if (swp->prev != NULL)
+					swp->prev->next = tmp;
+				tmp->prev = swp->prev;
+				if (tmp->next != NULL)
+					tmp->next->prev = swp;
+				swp->next = tmp->next;
+				swp->prev = tmp;
+				tmp->next = swp;
 				swp = tmp->prev;
-				nd = nd->next;
-				while (swp != NULL && tmp->n < swp->n)
-				{
-					if (swp->prev != NULL)
-						swp->prev->next = tmp;
-					tmp->prev = swp->prev;
-					if (tmp->next != NULL)
-						tmp->next->prev = swp;
-					swp->next = tmp->next;
-					swp->prev = tmp;
-					tmp->next = swp;
-					swp = tmp->prev;
-					if ((*list)->prev != NULL)
-						*list = (*list)->prev;
-					print_list(*list);
-				}
+				if ((*list)->prev != NULL)
+					*list = (*list)->prev;
+				print_list(*list);
 			}
-			else
-				nd = nd->next;
 		}
+		else
+			nd = nd->next;
 	}
 }
